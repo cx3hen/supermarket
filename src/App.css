@@ -1,0 +1,12 @@
+@import '~antd/dist/antd.css';
+
+.login-container {
+  background-color: #2b4b6b;
+  height: 880px;
+}
+
+.login-card {
+  background-color: aliceblue;
+  border-radius: 20px;
+  padding: 20px;
+}
