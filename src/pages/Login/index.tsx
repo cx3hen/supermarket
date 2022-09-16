@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
+import { Button, Checkbox, Form, Input, Col, Row, message } from 'antd';
 import { login } from '../../service';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [form] = Form.useForm();
+  //跳转的钩子函数
+  const navigate = useNavigate();
   return (
     <Row className="login-container" align="middle">
       <Col span={8} offset={8} className="login-card">
@@ -22,8 +26,15 @@ const Login = () => {
               htmlType="submit"
               onClick={() => {
                 form.validateFields().then(values => {
-                  login(values.username, values.password).then(res => {
-                    console.log(res);
+                  login(values).then(data => {
+                    if (data.meta.status !== 200) {
+                      return message.error('登陆失败，检查输入用户名或密码。');
+                    } else {
+                      message.success('登录成功。');
+                      console.log(data);
+                      localStorage.setItem('token', data.data.token);
+                      navigate('/home');
+                    }
                   });
                 });
               }}

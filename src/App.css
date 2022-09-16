@@ -2,11 +2,21 @@
 
 .login-container {
   background-color: #2b4b6b;
-  height: 880px;
+  height: 1000px;
 }
 
 .login-card {
   background-color: aliceblue;
   border-radius: 20px;
   padding: 20px;
+}
+
+#components-layout-demo-side .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
 }
