@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Form, Input, Col, Row, message } from 'antd';
+import React from 'react';
+import { Button, Form, Input, Col, Row, message } from 'antd';
 import { login } from '../../service';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -31,7 +30,6 @@ const Login = () => {
                       return message.error('登陆失败，检查输入用户名或密码。');
                     } else {
                       message.success('登录成功。');
-                      console.log(data);
                       localStorage.setItem('token', data.data.token);
                       navigate('/home');
                     }

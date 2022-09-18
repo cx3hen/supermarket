@@ -1,13 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { Outlet } from 'react-router-dom';
+import { getMenu } from '../../service';
+import { useNavigate } from 'react-router-dom';
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const Home = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   type MenuItem = Required<MenuProps>['items'][number];
+  //标签与id成映射关系
+  const icons: Record<number, React.ReactNode> = {
+    125: <UserOutlined />,
+    103: <TeamOutlined />,
+    101: <FileOutlined />,
+    102: <PieChartOutlined />,
+    145: <DesktopOutlined />,
+  };
 
   function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
     return {
@@ -18,13 +30,20 @@ const Home = () => {
     } as MenuItem;
   }
   //左侧菜单配置
-  const items: MenuItem[] = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [getItem('Tom', '3'), getItem('Bill', '4'), getItem('Alex', '5')]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
-  ];
+  const [items, setItems] = useState<MenuItem[]>();
+  useEffect(() => {
+    getMenu().then(data => {
+      const itemsTemp: MenuItem[] = [];
+      for (let i in data) {
+        const childrenTemp: MenuItem[] = [];
+        for (let j in data[i].children) {
+          childrenTemp.push(getItem(data[i].children[j].authName, data[i].children[j].path));
+        }
+        itemsTemp.push(getItem(data[i].authName, data[i].id, icons[data[i].id], childrenTemp));
+      }
+      setItems(itemsTemp);
+    });
+  }, []);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -37,7 +56,7 @@ const Home = () => {
           mode="inline"
           items={items}
           onClick={e => {
-            console.log(e);
+            navigate(`/home/${e.key}`);
           }}
         />
       </Sider>
