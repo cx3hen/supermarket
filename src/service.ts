@@ -48,11 +48,11 @@ export const getMenu = async () => {
 /**
  *  获取用户列表接口
  */
-export const getUsers = async () => {
+export const getUsers = async (query?: string) => {
   const res = await axios({
     url: '/users',
     method: 'get',
-    params: { pagenum: 1, pagesize: 100 },
+    params: { pagenum: 1, pagesize: 100, query },
   });
   return res.data.data;
 };
@@ -60,7 +60,7 @@ export const getUsers = async () => {
 /**
  *   修改用户状态接口
  */
-export const alterUsersState = async (id: string, state: boolean) => {
+export const alterUsersState = async (id: number, state: boolean) => {
   await axios({
     url: `/users/${id}/state/${state}`,
     method: 'put',
@@ -70,9 +70,9 @@ export const alterUsersState = async (id: string, state: boolean) => {
 /**
  *   修改用户信息接口
  */
-export const alterUsersInformation = async (id: string, values: UsersDataType) => {
+export const alterUsersInformation = async (id: number, values: UsersDataType) => {
   await axios({
-    url: `/users/${id}/`,
+    url: `/users/${id}`,
     data: {
       ...values,
     },
@@ -83,10 +83,47 @@ export const alterUsersInformation = async (id: string, values: UsersDataType) =
 /**
  *   删除用户接口
  */
-export const deleteUser = async (id: string) => {
+export const deleteUser = async (id: number) => {
   await axios({
     url: `/users/${id}/`,
     method: 'delete',
+  });
+};
+
+/**
+ *   添加用户接口
+ */
+export const createUser = async (values: { username: string; password: string; email: string; mobile: string }) => {
+  await axios({
+    url: `/users`,
+    data: {
+      ...values,
+    },
+    method: 'post',
+  });
+};
+
+/**
+ *   添加所有用户角色接口
+ */
+export const getUserRoles = async () => {
+  const res = await axios({
+    url: `/roles`,
+    method: 'get',
+  });
+  return res.data.data;
+};
+
+/**
+ *   分配用户角色接口
+ */
+export const allotUserRole = async (id: number, rid: number) => {
+  await axios({
+    url: `/users/${id}/role`,
+    data: {
+      rid,
+    },
+    method: 'put',
   });
 };
 

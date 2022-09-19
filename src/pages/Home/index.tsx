@@ -13,25 +13,25 @@ const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
   type MenuItem = Required<MenuProps>['items'][number];
   //标签与id成映射关系
-  const icons: Record<number, React.ReactNode> = {
-    125: <UserOutlined />,
-    103: <TeamOutlined />,
-    101: <FileOutlined />,
-    102: <PieChartOutlined />,
-    145: <DesktopOutlined />,
-  };
 
-  function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
-    return {
-      key,
-      icon,
-      children,
-      label,
-    } as MenuItem;
-  }
   //左侧菜单配置
   const [items, setItems] = useState<MenuItem[]>();
   useEffect(() => {
+    const icons: Record<number, React.ReactNode> = {
+      125: <UserOutlined />,
+      103: <TeamOutlined />,
+      101: <FileOutlined />,
+      102: <PieChartOutlined />,
+      145: <DesktopOutlined />,
+    };
+    function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
+      return {
+        key,
+        icon,
+        children,
+        label,
+      } as MenuItem;
+    }
     getMenu().then(data => {
       const itemsTemp: MenuItem[] = [];
       for (let i in data) {
@@ -71,7 +71,6 @@ const Home = () => {
           </Breadcrumb>
           {/* 页面主要内容 */}
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            Bill is a cat.
             {/* 子路由占位符 */}
             <Outlet />
           </div>

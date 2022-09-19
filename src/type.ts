@@ -4,5 +4,13 @@ export interface UsersDataType {
   mobile: string;
   role_name: string;
   mg_state: boolean;
-  id: string;
+  id: number;
+  password?: string;
+}
+
+export interface RolesDataType {
+  id: number;
+  roleName: string;
+  roleDesc: string;
+  children: any[];
 }

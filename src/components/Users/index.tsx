@@ -1,10 +1,12 @@
-import { Space, Table, Switch, message } from 'antd';
+import { Space, Table, Switch, message, Input } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useState } from 'react';
 import { getUsers, alterUsersState } from '../../service';
 import UsersModal from './UsersModal';
-import UserPopover from './UserPopover';
+import UserPopover from './UsersPopover';
 import { UsersDataType } from '../../type';
+
+const { Search } = Input;
 
 const Users = () => {
   const [data, setData] = useState<UsersDataType[]>();
@@ -15,6 +17,7 @@ const Users = () => {
       setData(res.users);
     });
   }, [refresh]);
+
   const columns: ColumnsType<UsersDataType> = [
     {
       title: '用户名',
@@ -67,6 +70,16 @@ const Users = () => {
 
   return (
     <>
+      <Search
+        placeholder="input search text"
+        onSearch={e => {
+          getUsers(e).then(data => {
+            setData(data.users);
+          });
+        }}
+        style={{ width: 200, marginBottom: 20 }}
+      />
+      <UsersModal setRefresh={() => setRefresh(!refresh)} />
       <Table
         columns={columns}
         dataSource={data}
