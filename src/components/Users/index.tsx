@@ -1,10 +1,10 @@
 import { Space, Table, Switch, message, Input } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useState } from 'react';
-import { getUsers, alterUsersState } from '../../service';
+import { getUsers, alterUsersState, deleteUser } from '../../service';
 import UsersModal from './UsersModal';
-import UserPopover from './UsersPopover';
 import { UsersDataType } from '../../type';
+import DeletePopover from '../pubcomponents/DeletePopover';
 
 const { Search } = Input;
 
@@ -17,6 +17,10 @@ const Users = () => {
       setData(res.users);
     });
   }, [refresh]);
+
+  const deleteService = (id: number) => {
+    deleteUser(id).then(() => setRefresh(!refresh));
+  };
 
   const columns: ColumnsType<UsersDataType> = [
     {
@@ -62,7 +66,7 @@ const Users = () => {
       render: (t, r) => (
         <Space size="middle">
           <UsersModal rowDate={r} setRefresh={() => setRefresh(!refresh)} />
-          <UserPopover rowDate={r} setRefresh={() => setRefresh(!refresh)} />
+          <DeletePopover deleteService={async () => deleteService(r.id)} />
         </Space>
       ),
     },

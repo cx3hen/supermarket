@@ -12,5 +12,12 @@ export interface RolesDataType {
   id: number;
   roleName: string;
   roleDesc: string;
-  children: any[];
+  children?: RolesChildrenDataType[];
+}
+
+export interface RolesChildrenDataType {
+  id: number;
+  authName: string;
+  path: string;
+  children?: RolesChildrenDataType[];
 }

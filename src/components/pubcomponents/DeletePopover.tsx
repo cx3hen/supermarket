@@ -1,21 +1,14 @@
 import { Button, Popover } from 'antd';
 import React, { useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
-import { deleteUser } from '../../service';
-import { UsersDataType } from '../../type';
 interface IProps {
-  rowDate: UsersDataType;
-
-  setRefresh: () => void;
+  deleteService: () => Promise<void>;
 }
-const UserPopover = (props: IProps) => {
-  const { setRefresh, rowDate } = props;
+const DeletePopover = (props: IProps) => {
+  const { deleteService } = props;
   const [open, setOpen] = useState(false);
   const onClick = () => {
-    deleteUser(rowDate.id).then(() => {
-      setRefresh();
-      setOpen(false);
-    });
+    deleteService();
   };
   const onCancel = () => {
     setOpen(false);
@@ -36,7 +29,7 @@ const UserPopover = (props: IProps) => {
           </Button>
         </>
       }
-      title="提示：确定要删除该用户吗？"
+      title="提示：确定要删除吗？"
       trigger="click"
       open={open}
       onOpenChange={handleOpenChange}
@@ -45,4 +38,4 @@ const UserPopover = (props: IProps) => {
     </Popover>
   );
 };
-export default UserPopover;
+export default DeletePopover;

@@ -85,7 +85,7 @@ export const alterUsersInformation = async (id: number, values: UsersDataType) =
  */
 export const deleteUser = async (id: number) => {
   await axios({
-    url: `/users/${id}/`,
+    url: `/users/${id}`,
     method: 'delete',
   });
 };
@@ -104,7 +104,7 @@ export const createUser = async (values: { username: string; password: string; e
 };
 
 /**
- *   添加所有用户角色接口
+ *   获取用户角色接口
  */
 export const getUserRoles = async () => {
   const res = await axios({
@@ -124,6 +124,16 @@ export const allotUserRole = async (id: number, rid: number) => {
       rid,
     },
     method: 'put',
+  });
+};
+
+/**
+ *   删除角色接口
+ */
+export const deleteRole = async (id: number) => {
+  await axios({
+    url: `/roles/${id}`,
+    method: 'delete',
   });
 };
 
