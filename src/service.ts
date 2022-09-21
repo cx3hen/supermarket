@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UsersDataType } from './type';
+import { RolesDataType, UsersDataType } from './type';
 
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
 
@@ -135,6 +135,54 @@ export const deleteRole = async (id: number) => {
     url: `/roles/${id}`,
     method: 'delete',
   });
+};
+
+/**
+ *   修改角色信息接口
+ */
+export const alterRolesInformation = async (id: number, values: RolesDataType) => {
+  await axios({
+    url: `/roles/${id}`,
+    data: {
+      ...values,
+    },
+    method: 'put',
+  });
+};
+
+/**
+ *   添加用户接口
+ */
+export const createRoles = async (values: { roleName: string; roleDesc: string }) => {
+  await axios({
+    url: `/roles`,
+    data: {
+      ...values,
+    },
+    method: 'post',
+  });
+};
+
+/**
+ *  获取角色权限接口(暂时不用，渲染不来)
+ */
+// export const getRolesRights = async () => {
+//   const res = await axios({
+//     url: '/rights/tree',
+//     method: 'get',
+//   });
+//   return res.data.data;
+// };
+
+/**
+ *   获取用户角色接口
+ */
+export const getRights = async () => {
+  const res = await axios({
+    url: `/rights/list`,
+    method: 'get',
+  });
+  return res.data.data;
 };
 
 /**

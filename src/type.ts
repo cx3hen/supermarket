@@ -21,3 +21,19 @@ export interface RolesChildrenDataType {
   path: string;
   children?: RolesChildrenDataType[];
 }
+
+// export interface RolesRightsDataType {
+//   id: number;
+//   authName: string;
+//   path: string;
+//   pid: number;
+//   children?: RolesRightsDataType[];
+// }
+
+export interface RightsDataType {
+  id: number;
+  authName: string;
+  path: string;
+  pid: number;
+  level: string;
+}

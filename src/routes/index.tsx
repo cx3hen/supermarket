@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Users from '../components/Users';
 import Roles from '../components/Roles';
+import Rights from '../components/Rights';
 
 const Routers = () => {
   return (
@@ -16,6 +17,7 @@ const Routers = () => {
           <Route path="/home/*" element={<Home />}>
             <Route path="users" element={<Users />} />
             <Route path="roles" element={<Roles />} />
+            <Route path="rights" element={<Rights />} />
           </Route>
         </Routes>
       </Router>

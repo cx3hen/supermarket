@@ -3,6 +3,7 @@ import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useState } from 'react';
 import { getUserRoles, deleteRole } from '../../service';
 import DeletePopover from '../pubcomponents/DeletePopover';
+import RolesModal from './RolesModal';
 
 import { RolesDataType } from '../../type';
 
@@ -13,7 +14,6 @@ const Roles = () => {
   useEffect(() => {
     getUserRoles().then(res => {
       setData(res);
-      console.log(res);
     });
   }, [refresh]);
 
@@ -52,8 +52,9 @@ const Roles = () => {
       render: (t, r) =>
         r.roleName ? (
           <Space size="middle">
-            123
+            <RolesModal rowDate={r} setRefresh={() => setRefresh(!refresh)} />
             <DeletePopover deleteService={async () => deleteService(r.id)} />
+            {/* TODO: 差个分配权限，会做做，不会就算了 */}
           </Space>
         ) : (
           ''
@@ -63,10 +64,12 @@ const Roles = () => {
 
   return (
     <>
+      <RolesModal setRefresh={() => setRefresh(!refresh)} />
       <Table
         columns={columns}
         dataSource={data}
         rowKey={r => r.id}
+        style={{ marginTop: 20 }}
         pagination={{
           showSizeChanger: true,
           showQuickJumper: true,
