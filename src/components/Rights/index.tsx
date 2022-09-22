@@ -10,7 +10,6 @@ const Roles = () => {
 
   useEffect(() => {
     getRights().then(res => {
-      console.log(res);
       setData(res);
     });
   }, []);

@@ -186,6 +186,28 @@ export const getRights = async () => {
 };
 
 /**
+ *  获取商品列表接口
+ */
+export const getGoods = async (query?: string) => {
+  const res = await axios({
+    url: '/goods',
+    method: 'get',
+    params: { pagenum: 1, pagesize: 1000, query },
+  });
+  return res.data.data;
+};
+
+/**
+ *   删除商品接口
+ */
+export const deleteGood = async (id: number) => {
+  await axios({
+    url: `/goods/${id}`,
+    method: 'delete',
+  });
+};
+
+/**
  * 使用get请求
  */
 // axios({

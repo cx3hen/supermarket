@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Users from '../components/Users';
 import Roles from '../components/Roles';
 import Rights from '../components/Rights';
+import Goods from '../components/Goods';
 
 const Routers = () => {
   return (
@@ -18,6 +19,7 @@ const Routers = () => {
             <Route path="users" element={<Users />} />
             <Route path="roles" element={<Roles />} />
             <Route path="rights" element={<Rights />} />
+            <Route path="goods" element={<Goods />} />
           </Route>
         </Routes>
       </Router>

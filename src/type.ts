@@ -37,3 +37,16 @@ export interface RightsDataType {
   pid: number;
   level: string;
 }
+
+export interface GoodsDataType {
+  goods_id: number;
+  goods_name: string;
+  goods_number: number;
+  goods_weight: number;
+  add_time: number;
+  upd_time: number;
+  hot_mumber: number;
+  is_promote: boolean;
+  goods_price: number;
+  goods_state: number;
+}
