@@ -45,7 +45,7 @@ export interface GoodsDataType {
   goods_weight: number;
   add_time: number;
   upd_time: number;
-  hot_mumber: number;
+  hot_number: number;
   is_promote: boolean;
   goods_price: number;
   goods_state: number;
@@ -56,4 +56,12 @@ export interface CategoriesDataType {
   cat_id: string;
   cat_name: string;
   children?: CategoriesDataType[];
+}
+
+export interface ParamsDataType {
+  cat_id: number;
+  attr_id: number;
+  attr_name: string;
+  attr_vals: string;
+  children: any[];
 }

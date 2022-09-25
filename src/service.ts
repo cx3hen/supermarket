@@ -264,6 +264,52 @@ export const alterGoodsInformation = async (
 };
 
 /**
+ *  获取商品分类参数的属性接口
+ */
+export const getParams = async (attr_id: number) => {
+  const res = await axios({
+    url: `/categories/${attr_id}/attributes`,
+    method: 'get',
+    params: {
+      sel: 'only',
+    },
+  });
+  return res.data.data;
+};
+
+/**
+ *   删除商品分类参数的属性接口
+ */
+export const deleteParam = async (id: number, att_rid: number) => {
+  await axios({
+    url: `/categories/${id}/attributes/${att_rid}`,
+    method: 'delete',
+  });
+};
+
+/**
+ *   创建商品分类参数的属性接口
+ */
+export const createParam = async (id: number, values: {}) => {
+  await axios({
+    url: `/categories/${id}/attributes`,
+    data: { ...values, attr_sel: 'only' },
+    method: 'post',
+  });
+};
+
+/**
+ *   修改商品分类参数名的属性接口
+ */
+export const alterParam = async (id: number, att_rid: number, values: {}) => {
+  await axios({
+    url: `/categories/${id}/attributes/${att_rid}`,
+    data: { ...values, attr_sel: 'only' },
+    method: 'put',
+  });
+};
+
+/**
  * 使用get请求
  */
 // axios({

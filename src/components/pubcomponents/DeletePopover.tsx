@@ -1,4 +1,4 @@
-import { Button, Popover } from 'antd';
+import { Button, message, Popover } from 'antd';
 import React, { useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 interface IProps {
@@ -8,7 +8,7 @@ const DeletePopover = (props: IProps) => {
   const { deleteService } = props;
   const [open, setOpen] = useState(false);
   const onClick = () => {
-    deleteService();
+    deleteService().then(message.success('删除成功.'));
   };
   const onCancel = () => {
     setOpen(false);
