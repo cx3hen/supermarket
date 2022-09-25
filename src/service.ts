@@ -208,6 +208,62 @@ export const deleteGood = async (id: number) => {
 };
 
 /**
+ *   添加商品接口
+ */
+export const createGoods = async (values: {
+  goods_name: string;
+  goods_price: number;
+  goods_weight: number;
+  goods_number: number;
+  goods_cat: number[];
+}) => {
+  await axios({
+    url: `/goods`,
+    data: {
+      ...values,
+      goods_cat: values.goods_cat.join(),
+      attrs: [],
+      goods_introduce: '',
+      pics: [],
+    },
+    method: 'post',
+  });
+};
+
+/**
+ *  获取所有商品分类接口
+ */
+export const getCategories = async () => {
+  const res = await axios({
+    url: '/categories',
+    method: 'get',
+  });
+  return res.data.data;
+};
+
+/**
+ *   修改商品信息接口
+ */
+export const alterGoodsInformation = async (
+  goods_id: number,
+  values: {
+    goods_name: string;
+    goods_price: number;
+    goods_weight: number;
+    goods_number: number;
+  }
+) => {
+  await axios({
+    url: `/goods/${goods_id}`,
+    data: {
+      ...values,
+      goods_cat: '0,0,0',
+    },
+    method: 'put',
+  });
+};
+
+/**
  * 使用get请求
  */
 // axios({

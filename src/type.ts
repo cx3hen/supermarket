@@ -49,4 +49,11 @@ export interface GoodsDataType {
   is_promote: boolean;
   goods_price: number;
   goods_state: number;
+  goods_cat: number[];
+}
+
+export interface CategoriesDataType {
+  cat_id: string;
+  cat_name: string;
+  children?: CategoriesDataType[];
 }

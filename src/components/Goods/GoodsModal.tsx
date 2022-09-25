@@ -1,45 +1,56 @@
-import { Button, Modal, Form, Input, message, Select } from 'antd';
+import { Button, Modal, Form, Input, message, Cascader } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { RolesDataType, GoodsDataType } from '../../type';
-import { alterUsersInformation, createUser, getUserRoles, allotUserRole } from '../../service';
+import { GoodsDataType } from '../../type';
+import { alterGoodsInformation, createGoods, getCategories } from '../../service';
 import { EditOutlined } from '@ant-design/icons';
-
-const { Option } = Select;
 
 interface IProps {
   rowDate?: GoodsDataType;
   setRefresh: () => void;
 }
+interface Option {
+  value: string;
+  label: string;
+  children?: Option[];
+}
+
+const displayRender = (labels: string[]) => labels[labels.length - 1];
 
 const GoodsModal = (props: IProps) => {
   const { rowDate, setRefresh } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [roles, setRoles] = useState<RolesDataType[]>();
+  const [categories, setCategories] = useState<Option[]>();
 
   const [form] = Form.useForm();
 
   useEffect(() => {
     isModalOpen &&
-      getUserRoles().then(data => {
-        setRoles(data);
+      getCategories().then(data => {
+        var newObj = JSON.parse(
+          JSON.stringify(data)
+            .replace(/cat_name/g, 'label')
+            .replace(/cat_id/g, 'value')
+        );
+        setCategories(newObj);
       });
   }, [isModalOpen]);
 
   const showModal = () => {
     setIsModalOpen(true);
   };
-
+  const onChange = (value: any[]) => {
+    console.log(value);
+  };
   const handleOk = () => {
     if (rowDate) {
       //修改
       form
         .validateFields()
         .then(values => {
-          alterUsersInformation(rowDate.goods_id, values).then(() => {
+          alterGoodsInformation(rowDate.goods_id, values).then(() => {
             message.success('修改成功');
           });
-          allotUserRole(rowDate.goods_id, values.rid);
         })
         .finally(() => {
           setRefresh();
@@ -48,7 +59,7 @@ const GoodsModal = (props: IProps) => {
     } else {
       //创建
       form.validateFields().then(values => {
-        createUser(values).then(() => {
+        createGoods(values).then(() => {
           setRefresh();
           setIsModalOpen(false);
           message.success('创建成功');
@@ -59,6 +70,7 @@ const GoodsModal = (props: IProps) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields();
   };
   return (
     <>
@@ -69,37 +81,29 @@ const GoodsModal = (props: IProps) => {
           添加商品
         </Button>
       )}
-      {/* <Modal title={rowDate ? '修改信息' : '添加用户'} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={rowDate ? '修改商品' : '添加商品'} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <Form name="nest-messages" form={form}>
-          <Form.Item name={'username'} label="用户名" initialValue={rowDate?.username}>
-            <Input disabled={rowDate !== undefined} />
-          </Form.Item>
-          {!rowDate && (
-            <Form.Item name={'password'} label="密码" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
-          )}
-          <Form.Item name={'email'} label="邮箱" initialValue={rowDate?.email} rules={[{ type: 'email', required: true }]}>
+          <Form.Item name={'goods_name'} label="商品名称" initialValue={rowDate?.goods_name} rules={[{ required: true }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item name={'mobile'} label="手机" initialValue={rowDate?.mobile} rules={[{ len: 11, required: true }]}>
+          <Form.Item name={'goods_price'} label="商品价格" initialValue={rowDate?.goods_price} rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          {rowDate && (
-            <Form.Item name={'rid'} label="角色" initialValue={rowDate?.role_name} rules={[{ required: true }]}>
-              <Select style={{ width: 120 }}>
-                {roles &&
-                  roles?.map(item => (
-                    <Option key={item.id} value={item.id}>
-                      {item.roleName}
-                    </Option>
-                  ))}
-              </Select>
+
+          <Form.Item name={'goods_weight'} label="商品重量" initialValue={rowDate?.goods_weight} rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name={'goods_number'} label="商品数量" initialValue={rowDate?.goods_number} rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          {!rowDate && (
+            <Form.Item name={'goods_cat'} label="商品类型" rules={[{ required: true }]}>
+              <Cascader options={categories} expandTrigger="click" displayRender={displayRender} onChange={onChange} />
             </Form.Item>
           )}
         </Form>
-      </Modal> */}
+      </Modal>
     </>
   );
 };

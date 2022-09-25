@@ -1,10 +1,11 @@
-import { Space, Table, Switch, message, Input } from 'antd';
+import { Space, Table, Input } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useState } from 'react';
-import { getGoods, alterUsersState, deleteGood } from '../../service';
+import { getGoods, deleteGood } from '../../service';
 import GoodsModal from './GoodsModal';
 import { GoodsDataType } from '../../type';
 import DeletePopover from '../pubcomponents/DeletePopover';
+import { formatDate } from 'utils';
 
 const { Search } = Input;
 
@@ -42,10 +43,16 @@ const Goods = () => {
       render: (t, r) => <span>{t}</span>,
     },
     {
-      title: '创建时间',
+      title: '商品数量',
+      dataIndex: 'goods_number',
+      key: 'goods_number',
+      render: (t, r) => <span>{t}</span>,
+    },
+    {
+      title: '修改时间',
       dataIndex: 'add_time',
       key: 'add_time',
-      render: (t, r) => <span>{t}</span>,
+      render: (t, r) => <span>{formatDate(t)}</span>,
     },
 
     {
