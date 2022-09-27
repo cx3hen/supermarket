@@ -26,7 +26,7 @@ const GoodsModal = (props: IProps) => {
 
   useEffect(() => {
     isModalOpen &&
-      getCategories().then(data => {
+      getCategories(3).then(data => {
         var newObj = JSON.parse(
           JSON.stringify(data)
             .replace(/cat_name/g, 'label')

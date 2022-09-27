@@ -48,6 +48,7 @@ const RolesModal = (props: IProps) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields();
   };
   return (
     <>

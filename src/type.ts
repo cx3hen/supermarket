@@ -35,7 +35,7 @@ export interface RightsDataType {
   authName: string;
   path: string;
   pid: number;
-  level: string;
+  level: number;
 }
 
 export interface GoodsDataType {
@@ -53,8 +53,11 @@ export interface GoodsDataType {
 }
 
 export interface CategoriesDataType {
-  cat_id: string;
+  cat_id: number;
   cat_name: string;
+  cat_pid: number;
+  cat_level: number;
+  cat_deleted: boolean;
   children?: CategoriesDataType[];
 }
 

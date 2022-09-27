@@ -20,7 +20,7 @@ const Params = () => {
   const [id, setId] = useState<number>();
 
   useEffect(() => {
-    getCategories().then(data => {
+    getCategories(3).then(data => {
       const newObj = JSON.parse(
         JSON.stringify(data)
           .replace(/cat_name/g, 'label')
@@ -36,9 +36,6 @@ const Params = () => {
       newObj.forEach((item: ParamsDataType) => {
         item.children = [{ attr_vals_children: item.attr_vals }];
       });
-      console.log('data', data);
-
-      console.log('newObj', newObj);
       setData(newObj);
     });
   }, [id, refresh]);

@@ -31,7 +31,7 @@ const Roles = () => {
       title: '权限等级',
       dataIndex: 'level',
       key: 'level',
-      render: (t, r) => <span>{t}</span>,
+      render: (t, r) => <span>{Number(t) + 1 + '级'}</span>,
     },
   ];
 

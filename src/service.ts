@@ -233,9 +233,12 @@ export const createGoods = async (values: {
 /**
  *  获取所有商品分类接口
  */
-export const getCategories = async () => {
+export const getCategories = async (type: number) => {
   const res = await axios({
     url: '/categories',
+    params: {
+      type,
+    },
     method: 'get',
   });
   return res.data.data;
@@ -305,6 +308,38 @@ export const alterParam = async (id: number, att_rid: number, values: {}) => {
   await axios({
     url: `/categories/${id}/attributes/${att_rid}`,
     data: { ...values, attr_sel: 'only' },
+    method: 'put',
+  });
+};
+
+/**
+ *   删除商品分类接口
+ */
+export const deleteCategories = async (cat_id: number) => {
+  await axios({
+    url: `/categories/${cat_id}`,
+    method: 'delete',
+  });
+};
+
+/**
+ *   创建商品分类接口
+ */
+export const createCategories = async (values: { cat_name: string; cat_level: number; cat_pid: number }) => {
+  await axios({
+    url: `/categories`,
+    data: { ...values },
+    method: 'post',
+  });
+};
+
+/**
+ *   修改商品分类参数名的属性接口
+ */
+export const alterCategories = async (cat_id: number, values: { attr_name: string }) => {
+  await axios({
+    url: `/categories/${cat_id}`,
+    data: { ...values },
     method: 'put',
   });
 };
