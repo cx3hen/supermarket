@@ -68,3 +68,13 @@ export interface ParamsDataType {
   attr_vals: string;
   children: any[];
 }
+
+export interface OrderDataType {
+  order_id: number;
+  order_number: string;
+  order_price: number;
+  is_send: string;
+  update_time: string;
+  order_fapiao_title: string;
+  user_id: number;
+}

@@ -8,6 +8,7 @@ import Rights from '../components/Rights';
 import Goods from '../components/Goods';
 import Params from '../components/Params';
 import Categories from '../components/Categories';
+import Orders from '../components/Orders';
 
 const Routers = () => {
   return (
@@ -24,6 +25,7 @@ const Routers = () => {
             <Route path="goods" element={<Goods />} />
             <Route path="params" element={<Params />} />
             <Route path="categories" element={<Categories />} />
+            <Route path="orders" element={<Orders />} />
           </Route>
         </Routes>
       </Router>

@@ -345,6 +345,29 @@ export const alterCategories = async (cat_id: number, values: { attr_name: strin
 };
 
 /**
+ *  获取订单接口
+ */
+export const getOrders = async (query?: string) => {
+  const res = await axios({
+    url: '/orders',
+    method: 'get',
+    params: { pagenum: 1, pagesize: 1000, query },
+  });
+  return res.data.data;
+};
+
+/**
+ *   修改订单状态接口
+ */
+export const alterOrders = async (order_id: number, is_send?: string) => {
+  await axios({
+    url: `/orders/${order_id}`,
+    data: { is_send, order_price: 10 },
+    method: 'put',
+  });
+};
+
+/**
  * 使用get请求
  */
 // axios({
