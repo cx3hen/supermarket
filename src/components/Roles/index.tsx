@@ -54,7 +54,6 @@ const Roles = () => {
           <Space size="middle">
             <RolesModal rowDate={r} setRefresh={() => setRefresh(!refresh)} />
             <DeletePopover deleteService={async () => deleteService(r.id)} />
-            {/* TODO: 差个分配权限，会做做，不会就算了 */}
           </Space>
         ) : (
           ''

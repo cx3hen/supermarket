@@ -164,17 +164,6 @@ export const createRoles = async (values: { roleName: string; roleDesc: string }
 };
 
 /**
- *  获取角色权限接口(暂时不用，渲染不来)
- */
-// export const getRolesRights = async () => {
-//   const res = await axios({
-//     url: '/rights/tree',
-//     method: 'get',
-//   });
-//   return res.data.data;
-// };
-
-/**
  *   获取用户角色接口
  */
 export const getRights = async () => {
@@ -368,29 +357,12 @@ export const alterOrders = async (order_id: number, is_send?: string) => {
 };
 
 /**
- * 使用get请求
+ *  获取数据报表接口
  */
-// axios({
-//   url: 'http://httpbin.org/get',
-//   params: {
-//     name: 'kjh',
-//     age: 29,
-//   },
-//   method: 'get',
-// })
-//   .then(res => console.log(res))
-//   .catch(err => console.error(err));
-
-/**
- * 使用post请求
- */
-// axios({
-//   url: 'http://httpbin.org/post',
-//   data: {
-//     name: '123',
-//     time: '2019-09-09',
-//   },
-//   method: 'post',
-// })
-//   .then(res => console.log(res))
-//   .catch(err => console.error(err));
+export const getReports = async () => {
+  const res = await axios({
+    url: '/reports/type/1',
+    method: 'get',
+  });
+  return res.data.data;
+};

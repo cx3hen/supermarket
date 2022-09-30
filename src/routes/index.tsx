@@ -9,6 +9,7 @@ import Goods from '../components/Goods';
 import Params from '../components/Params';
 import Categories from '../components/Categories';
 import Orders from '../components/Orders';
+import Reports from '../components/Reports';
 
 const Routers = () => {
   return (
@@ -26,6 +27,7 @@ const Routers = () => {
             <Route path="params" element={<Params />} />
             <Route path="categories" element={<Categories />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="reports" element={<Reports />} />
           </Route>
         </Routes>
       </Router>
