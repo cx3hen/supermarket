@@ -11,6 +11,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const Home = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [bread, setBread] = useState<string>('home');
   type MenuItem = Required<MenuProps>['items'][number];
   //标签与id成映射关系
 
@@ -57,17 +58,20 @@ const Home = () => {
           items={items}
           onClick={e => {
             navigate(`/home/${e.key}`);
+            setBread(e.key);
           }}
         />
       </Sider>
       <Layout className="site-layout">
         {/* 头部 */}
-        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Header className="site-layout-background" style={{ padding: 0 }}>
+          <span className="header">超市仓库管理系统</span>
+        </Header>
         <Content style={{ margin: '0 16px' }}>
           {/* 面包屑 */}
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Breadcrumb.Item>{bread}</Breadcrumb.Item>
+            <Breadcrumb.Item>index</Breadcrumb.Item>
           </Breadcrumb>
           {/* 页面主要内容 */}
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
